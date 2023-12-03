@@ -7,6 +7,9 @@
     width: 600px;
 }
 
+#borrower-page-title {
+  margin-top: 30px;
+}
 /* Style the input container */
 .input-container {
   display: flex;

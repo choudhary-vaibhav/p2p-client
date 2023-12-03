@@ -96,6 +96,7 @@ export const Borrower = () => {
 
         }catch(err){
             console.log(err);
+            createUser(account);
         }
     }
 
@@ -151,15 +152,37 @@ export const Borrower = () => {
         }
     }
 
+    const repayLoan = async () => {
+        try{
+            
+            // const userObj = {
+            //     'type': 'borrower',
+            //     'account': account,
+            //     'wallet': 100,
+            // };
+            // console.log(userObj)
+            // const result = await API_CLIENT.post(process.env.REACT_APP_BASE_URL + '/user/create', userObj);
+
+            // if(result.data){
+            //     // console.log(result.data.id)
+            //     setWallet(100);
+            // }
+            window.alert("Integration Pending!");
+
+        }catch(err){
+            console.log(err);
+        }
+    }
+
 
 
 
     return <>
         <div className='page'>
             <div>
-                <h1>Hello Borrower!</h1>
-                <h3>Please enter details to seek loan</h3>
-                <h3>Wallet Amount: {wallet} ETH</h3>
+                <h2 id='borrower-page-title'>Hello Borrower!</h2>
+                <h4>Please enter details to seek loan</h4>
+                <h4>Wallet Amount: {wallet} ETH</h4>
             </div>
 
             <div id='borrower-card'>
@@ -211,10 +234,13 @@ export const Borrower = () => {
                                 'interest': obj.interest,
                                 'dueDate': obj.dueDate,
                                 'status': obj.lender_acc !== 'N/A' ? "Accepted" : "Pending",
-                                'giveOrTake': "Repay"
+                                'giveOrTake': "Repay",
+                                'loanID': obj._id,
+                                'title': "Repay Loan",
+                                'submit_button_name': "Repay",
                             }
                             return(
-                                <TableRow object={tempObj}></TableRow>
+                                <TableRow key={obj._id} object={tempObj} Fn={repayLoan}></TableRow>
                                 
                             )
                         })

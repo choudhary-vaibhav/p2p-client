@@ -1,10 +1,13 @@
 import './Lender.css';
 import { useEffect, useState } from 'react';
 import { API_CLIENT } from '../../services/api-client';
+import { TableRow } from '../../components/TableRow/TableRow';
 
 export const Lender = () => {
     const [wallet, setWallet] = useState(0);
     const [accNo, setAccNo] = useState('Connect Metamask!');
+    const [loanArr, setLoanArr] = useState([]);
+    const [load, setLoad] = useState(true);
 
     useEffect(() => {
         // Check if MetaMask is installed
@@ -35,7 +38,7 @@ export const Lender = () => {
         try{
             
             const userObj = {
-                'type': 'borrower',
+                'type': 'lender',
                 'account': account,
                 'wallet': 100,
             };
@@ -56,19 +59,60 @@ export const Lender = () => {
         try{
             
             const userObj = {
-                'type': 'borrower',
+                'type': 'lender',
                 'accNo': account,
             };
             console.log(userObj)
             console.log(process.env.REACT_APP_BASE_URL)
             const result = await API_CLIENT.post(process.env.REACT_APP_BASE_URL + '/user/wallet', userObj);
 
-            console.log(result)
             if(result.data){
                 console.log(result)
                 setWallet(result.data.wallet);
+                getLoanDataAll();
             }else{
                 createUser(account);
+            }
+
+        }catch(err){
+            console.log(err);
+            createUser(account);
+        }
+     }
+
+     const getLoanDataAll = async () => {
+        try{
+            
+            const result = await API_CLIENT.post(process.env.REACT_APP_BASE_URL + '/getLoanDataAll', );
+
+            if(result.data){
+                console.log(result.data)
+                setLoanArr(result.data);
+                setLoad(false);
+            }
+
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    const approveLoan = async (loanID, borrower_acc, amount) => {
+        try{
+            
+            const userObj = {
+                "loanID": loanID,
+                "amount": amount,
+                "borrower_acc": borrower_acc,
+                "lender_acc": accNo,
+            };
+            console.log(userObj)
+            console.log(process.env.REACT_APP_BASE_URL)
+            const result = await API_CLIENT.post(process.env.REACT_APP_BASE_URL + '/loan/approve', userObj);
+
+            if(result.data){
+                console.log(result.data);
+                window.alert("Successfully Approved!");
+                window.location.reload();
             }
 
         }catch(err){
@@ -77,12 +121,14 @@ export const Lender = () => {
      }
 
 
+
+
     return <>
         <div className='page'>
             <div>
-                <h1>Hello Lender!</h1>
-                <h3>You can look for borrowers to lend money!</h3>
-                <h3>Wallet Amount: {wallet} ETH ({accNo})</h3>
+                <h2 className='p2p'>Hello Lender!</h2>
+                <h4>You can look for borrowers to lend money!</h4>
+                <h4>Wallet Amount: {wallet} ETH ({accNo})</h4>
             </div>
 
             <div id='table-card'>
@@ -91,22 +137,32 @@ export const Lender = () => {
                         <th style={{ width: '250px' }} >Borrower Address</th>
                         <th style={{ width: '100px' }} >Amount</th>
                         <th style={{ width: '100px' }} >Due Date</th>
-                        <th style={{ width: '100px' }} ></th>
+                        <th style={{ width: '100px' }} >Interest</th>
                         <th style={{ width: '100px' }} ></th>
                         <th style={{ width: '100px' }} >Status</th>
                     </tr>
 
-                    {/* {load?
-                        <div className='loading'>
-                        <img className='loading-img' src={loading}></img>
+                    {load?
+                        <div>
                         </div>
                         :
-                        portfolioArr.map(obj => {
+                        loanArr.map(obj => {
+                            const tempObj = {
+                                'account': obj.borrower_acc,
+                                'amount': obj.amount,
+                                'interest': obj.interest,
+                                'dueDate': obj.dueDate,
+                                'status': obj.lender_acc !== 'N/A' ? "Accepted" : "Pending",
+                                'giveOrTake': "Get Details",
+                                'loanID': obj._id,
+                                'title': "Approve Loan",
+                                'submit_button_name': "Give Loan",
+                            }
                             return(
-                                <TableRow object={obj}></TableRow>
+                                <TableRow key={obj._id} object={tempObj} Fn={approveLoan}></TableRow>
                             )
                         })
-                    } */}
+                    }
                 </table>
             </div>
         </div>
