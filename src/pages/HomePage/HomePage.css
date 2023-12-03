@@ -1,0 +1,39 @@
+.page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    color: #11009E;
+    background-image: url('../../assets/two.jpg');
+    background-position: 0 0; 
+    background-repeat:no-repeat; 
+    background-size: cover;
+}
+
+.card {
+    margin-top: 20vh;
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    gap: 10px;
+    /* align-self: center; */
+    justify-self: center;
+}
+
+.home-button {
+    width: 480px;
+    height: 44px;
+    background: #4942E4;
+    border-radius: 5px;
+    border-color: #4942E4;
+    color: white;
+    align-self: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.home-button:hover {
+    cursor: pointer;
+}

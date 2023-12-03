@@ -1,0 +1,81 @@
+* {box-sizing: border-box;}
+
+#borrower-card {
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+}
+
+/* Style the input container */
+.input-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* .input-label {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 30px;
+    align-self: flex-start;
+    color: #11009E;
+} */
+
+/* Style the form icons */
+.icon {
+  padding: 10px;
+  background: #4942E4;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}
+
+#ether-icon {
+  background: #4942E4;
+
+    width: 20px;
+    height: 40px;
+}
+
+/* Style the input fields */
+.input-field {
+    box-sizing: border-box;
+    width: 580px;
+    height: 40px;
+    background: #FFFFFF;
+    border: 0.5px solid #4942E4;
+    border-radius: 5px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 30px;
+    color:#4942E4;
+    padding: 10px;
+}
+
+.input-field:focus {
+  border: 2px solid #4942E4;
+}
+
+/* Set a style for the submit button */
+.btn {
+    width: 600px;
+    height: 44px;
+    background: #4942E4;
+    border-radius: 5px;
+    border-color: #4942E4;
+    color: white;
+    align-self: center;
+    font-style: normal;
+    font-weight: 550;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 1;
+}
