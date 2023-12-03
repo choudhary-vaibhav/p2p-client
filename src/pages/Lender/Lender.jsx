@@ -1,5 +1,6 @@
 import './Lender.css';
 import { useEffect, useState } from 'react';
+import { API_CLIENT } from '../../services/api-client';
 
 export const Lender = () => {
     const [wallet, setWallet] = useState(0);
@@ -18,14 +19,63 @@ export const Lender = () => {
               // Log the user's account to the console
               console.log('MetaMask account:', userAccount);
               setAccNo(userAccount);
+              getWallet(userAccount);
             })
             .catch(function(error) {
               console.error('Error fetching account:', error);
+              window.alert('Error fetching account:', error);
             });
         } else {
           console.error('MetaMask is not installed');
+          window.alert('MetaMask is not installed');
         }
     }, []);
+
+    const createUser = async (account) => {
+        try{
+            
+            const userObj = {
+                'type': 'borrower',
+                'account': account,
+                'wallet': 100,
+            };
+            console.log(userObj)
+            const result = await API_CLIENT.post(process.env.REACT_APP_BASE_URL + '/user/create', userObj);
+
+            if(result.data){
+                console.log(result.data.id)
+                setWallet(100);
+            }
+
+        }catch(err){
+            console.log(err);
+        }
+     }
+
+     const getWallet = async (account) => {
+        try{
+            
+            const userObj = {
+                'type': 'borrower',
+                'accNo': account,
+            };
+            console.log(userObj)
+            console.log(process.env.REACT_APP_BASE_URL)
+            const result = await API_CLIENT.post(process.env.REACT_APP_BASE_URL + '/user/wallet', userObj);
+
+            console.log(result)
+            if(result.data){
+                console.log(result)
+                setWallet(result.data.wallet);
+            }else{
+                createUser(account);
+            }
+
+        }catch(err){
+            console.log(err);
+        }
+     }
+
 
     return <>
         <div className='page'>
