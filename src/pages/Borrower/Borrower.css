@@ -1,7 +1,7 @@
 * {box-sizing: border-box;}
 
 #borrower-card {
-    margin-top: 10vh;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     width: 600px;
@@ -78,4 +78,30 @@
 
 .btn:hover {
   opacity: 1;
+}
+
+#table-card {
+  margin-top: 30px;
+  display: flex;
+  align-self: center;
+  width: 1000px;
+  border-radius: 2px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+  background-color: white;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }

@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 
 export const Borrower = () => {
 
-    const [accNo, setAccNo] = useState('');
-
+    const [accNo, setAccNo] = useState('Connect Metamask!');
     const [minDate, setMinDate] = useState(getToday()); // Get today's date in YYYY-MM-DD format
+    const [wallet, setWallet] = useState(0);
 
     // Function to get today's date in YYYY-MM-DD format
     function getToday() {
@@ -50,12 +50,13 @@ export const Borrower = () => {
             <div>
                 <h1>Hello Borrower!</h1>
                 <h3>Please enter details to seek loan</h3>
+                <h3>Wallet Amount: {wallet} ETH</h3>
             </div>
 
             <div id='borrower-card'>
                 <div class="input-container">
                 <i class="fa fa-user icon"></i>
-                <input disabled style={{ backgroundColor: '#d3d3d3' }} class="input-field" type="text" defaultValue={accNo} placeholder="Account No." name="account-no"/>
+                <input disabled style={{ backgroundColor: '#d3d3d3' }} class="input-field" type="text" value={accNo} placeholder="Account No." name="account-no"/>
                 </div>
 
                 <div class="input-container">
@@ -76,6 +77,31 @@ export const Borrower = () => {
                 </div>
 
                 <button type="submit" class="btn">Submit Loan Proposal</button>
+            </div>
+
+            <div id='table-card'>
+                <table>
+                    <tr>
+                        <th style={{ width: '250px' }} >Lender Address</th>
+                        <th style={{ width: '100px' }} >Amount</th>
+                        <th style={{ width: '100px' }} >Interest</th>
+                        <th style={{ width: '100px' }} >Due Date</th>
+                        <th style={{ width: '100px' }} ></th>
+                        <th style={{ width: '100px' }} >Status</th>
+                    </tr>
+
+                    {/* {load?
+                        <div className='loading'>
+                        <img className='loading-img' src={loading}></img>
+                        </div>
+                        :
+                        portfolioArr.map(obj => {
+                            return(
+                                <TableRow object={obj}></TableRow>
+                            )
+                        })
+                    } */}
+                </table>
             </div>
         </div>
     </>
